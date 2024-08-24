@@ -1,0 +1,53 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Data</title>
+</head>
+<body>
+    <h1>API Data</h1>
+    <div id="data">
+        {% if data.error %}
+            <p>Error: {{ data.error }}</p>
+        {% else %}
+            <pre>{{ data | tojson(indent=2) }}</pre>
+        {% endif %}
+    </div>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios API Call</title>
+</head>
+<body>
+    <h1>API Data</h1>
+    <div id="data"></div>
+
+    <!-- Include Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Your JavaScript code -->
+    <script>
+        // Define the URL of the API endpoint
+        const API_URL = 'http://35.220.225.3:30004/api/v1/market/ticker?symbol=BTC_USDT';
+
+        // Make the GET request to the API
+        axios.get(API_URL)
+            .then(response => {
+                // Handle success
+                console.log('API Data:', response.data);
+                document.getElementById('data').innerHTML = '<pre>' + JSON.stringify(response.data, null, 2) + '</pre>';
+            })
+            .catch(error => {
+                // Handle error
+                console.error('Error fetching data:', error);
+                document.getElementById('data').innerHTML = '<p>Error fetching data. Check console for details.</p>';
+            });
+    </script>
+</body>
+</html>
